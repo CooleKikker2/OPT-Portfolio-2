@@ -27,7 +27,9 @@ class Page
             String lied = scanner.nextLine();
             if(lied.equals("stop"))
             {
-                break;
+                Boek boek = new Boek("Boekje");
+                BookLoader bookLoader = new BookLoader();
+                bookLoader.writeBoek(boek);
             }
 
             System.out.printf("Lied %s toegevoegd aan %s \n", lied, boekje);
