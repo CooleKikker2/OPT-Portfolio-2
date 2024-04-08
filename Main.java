@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Page
@@ -19,18 +20,29 @@ class Page
 
     public void voegBoekToe(Scanner scanner)
     {
+        ArrayList<Lied> liederen = new ArrayList<Lied>();
         System.out.println("Wat is de naam van het boekje?");
         String boekje = scanner.nextLine();
+        System.out.println("Wie is de componist van het boekje?");
+        String componistnaam = scanner.nextLine();
+        System.out.println("Onder welke categorie valt het boekje?");
+        String categorienaam = scanner.nextLine();
         System.out.println("Welke liederen staan er in het boekje? Typ 'stop' al je alle liederen hebt toegevoegd");
         while(true)
         {
-            String lied = scanner.nextLine();
-            if(lied.equals("stop"))
+            String liednaam = scanner.nextLine();
+            Lied lied = new Lied(liednaam);
+            liederen.add(lied);
+            if(liednaam.equals("stop"))
             {
-                Boek boek = new Boek("Boekje");
+                Componist componist = new Componist(componistnaam);
+                Categorie categorie = new Categorie(categorienaam);
+                Boek boek = new Boek("Boekje", componist, categorie);
                 BookLoader bookLoader = new BookLoader();
                 bookLoader.writeBoek(boek);
+                break;
             }
+
 
             System.out.printf("Lied %s toegevoegd aan %s \n", lied, boekje);
             System.out.println("Voeg nog een lied toe aan het boekje of typ 'stop'");

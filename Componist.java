@@ -1,8 +1,12 @@
 public class Componist {
-    public String name;
+    public String naam;
 
-    public String getName()
+    public Componist(String naam)
     {
-        return this.name;
+        this.naam = naam;
+    }
+    public String getNaam()
+    {
+        return this.naam;
     }
 }

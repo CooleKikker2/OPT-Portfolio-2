@@ -4,9 +4,11 @@ public class Boek {
 
     public Categorie categorie;
 
-    public Boek(String naam)
+    public Boek(String naam, Componist componist, Categorie categorie)
     {
         this.naam = naam;
+        this.componist = componist;
+        this.categorie = categorie;
     }
 
     public String getNaam()

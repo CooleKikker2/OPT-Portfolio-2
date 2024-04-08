@@ -36,7 +36,7 @@ public class BookLoader {
         try {
             FileWriter writer = new FileWriter(booksFile, true);
 
-            String line = (loadBooks().size() + 1) + " " + b.getNaam() + " " + b.getComponist().getName() + " " + b.getCategorie().getNaam() + " " + b.getBoekNamen();
+            String line = (loadBooks().size() + 1) + " " + b.getNaam() + " " + b.getComponist().getNaam() + " " + b.getCategorie().getNaam() + " " + b.getBoekNamen();
             writer.append(line + "\n");
             writer.close();
         } catch (IOException e){
