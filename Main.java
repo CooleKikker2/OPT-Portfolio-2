@@ -8,6 +8,7 @@ class Page
         System.out.println("Welkom bij je orgelboekencollectie");
         System.out.println("Maak een keuze om verder te gaan:");
         System.out.println("1. Boek toevoegen aan collectie");
+        System.out.println("2. Boeken zoeken op basis van lied");
         int keuze = scanner.nextInt();
         scanner.nextLine();
         switch (keuze)
@@ -15,8 +16,13 @@ class Page
             case 1:
                 this.voegBoekToe(scanner);
                 break;
+            case 2:
+                this.filterBoek(scanner);
+                break;
         }
     }
+
+
 
     public void voegBoekToe(Scanner scanner)
     {
@@ -44,6 +50,7 @@ class Page
                     l.setBoekId(boek_id);
                     liedloader.writeLied(l);
                 }
+                this.menu(scanner);
                 break;
             }
 
@@ -52,6 +59,11 @@ class Page
             System.out.printf("Lied %s toegevoegd aan %s \n", lied, boekje);
             System.out.println("Voeg nog een lied toe aan het boekje of typ 'stop'");
         }
+    }
+
+    public void filterBoek(Scanner scanner)
+    {
+
     }
 }
 public class Main {
