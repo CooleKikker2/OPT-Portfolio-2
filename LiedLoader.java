@@ -7,13 +7,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookLoader {
-    private String booksFile = "boek.txt";
+public class LiedLoader {
+    private String liedFile = "lied.txt";
 
-    public void removeBook(ArrayList<String[]> games){
+    public void removeLied(ArrayList<String[]> games){
         try {
-            FileWriter writer = new FileWriter(booksFile);
-            writer.append("Id Naam Componist Categorie Liederen\n");
+            FileWriter writer = new FileWriter(liedFile);
+            writer.append("Id Naam Boek\n");
 
             //alle games hun ID's refreshen zodat het weer gesorteerd is(zodat je geen problemen krijgt met het toevoegen van nieuwe games en dan twee dezelfde ID's krijgt)
             for(int i = 0; i < games.size(); i++){
@@ -32,12 +32,12 @@ public class BookLoader {
         }
     }
 
-    public int writeBoek(Boek b){
+    public int writeLied(Lied l){
         try {
-            FileWriter writer = new FileWriter(booksFile, true);
+            FileWriter writer = new FileWriter(liedFile, true);
 
-            int new_id = loadBooks().size() + 1;
-            String line = new_id + " " + b.getNaam() + " " + b.getComponist().getNaam() + " " + b.getCategorie().getNaam() + " " + b.getBoekNamen();
+            int new_id = loadLiederen().size() + 1;
+            String line = new_id + " " + l.getNaam() + " " + l.getBoekId();
             writer.append(line + "\n");
             writer.close();
             return new_id;
@@ -47,10 +47,10 @@ public class BookLoader {
 
         return 0;
     }
-    public ArrayList<String[]> loadBooks()
+    public ArrayList<String[]> loadLiederen()
     {
         //Games inladen (sorteeroptie / filteroptie later hier inbouwen)
-        return this.loadFile(booksFile);
+        return this.loadFile(liedFile);
     }
 
     public ArrayList<String[]> loadFile(String fileName)

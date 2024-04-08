@@ -21,6 +21,11 @@ public class Boek {
         return this.naam;
     }
 
+    public ArrayList<Lied> getLiederen()
+    {
+        return this.liederen;
+    }
+
     public Componist getComponist()
     {
         return this.componist;

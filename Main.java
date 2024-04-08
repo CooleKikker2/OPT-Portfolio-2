@@ -31,19 +31,24 @@ class Page
         while(true)
         {
             String liednaam = scanner.nextLine();
-            Lied lied = new Lied(liednaam);
-            liederen.add(lied);
             if(liednaam.equals("stop"))
             {
                 Componist componist = new Componist(componistnaam);
                 Categorie categorie = new Categorie(categorienaam);
                 Boek boek = new Boek("Boekje", componist, categorie, liederen);
                 BookLoader bookLoader = new BookLoader();
-                bookLoader.writeBoek(boek);
+                LiedLoader liedloader = new LiedLoader();
+                int boek_id = bookLoader.writeBoek(boek);
+                for(Lied l : boek.getLiederen())
+                {
+                    l.setBoekId(boek_id);
+                    liedloader.writeLied(l);
+                }
                 break;
             }
 
-
+            Lied lied = new Lied(liednaam);
+            liederen.add(lied);
             System.out.printf("Lied %s toegevoegd aan %s \n", lied, boekje);
             System.out.println("Voeg nog een lied toe aan het boekje of typ 'stop'");
         }
