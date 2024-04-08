@@ -37,7 +37,7 @@ class Page
             {
                 Componist componist = new Componist(componistnaam);
                 Categorie categorie = new Categorie(categorienaam);
-                Boek boek = new Boek("Boekje", componist, categorie);
+                Boek boek = new Boek("Boekje", componist, categorie, liederen);
                 BookLoader bookLoader = new BookLoader();
                 bookLoader.writeBoek(boek);
                 break;

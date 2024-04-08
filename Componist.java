@@ -1,5 +1,5 @@
 public class Componist {
-    public String naam;
+    private String naam;
 
     public Componist(String naam)
     {

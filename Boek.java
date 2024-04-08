@@ -1,14 +1,19 @@
+import java.util.ArrayList;
+
 public class Boek {
-    public String naam;
-    public Componist componist;
+    private String naam;
+    private Componist componist;
 
-    public Categorie categorie;
+    private Categorie categorie;
 
-    public Boek(String naam, Componist componist, Categorie categorie)
+    private ArrayList<Lied> liederen;
+
+    public Boek(String naam, Componist componist, Categorie categorie, ArrayList<Lied> liederen)
     {
         this.naam = naam;
         this.componist = componist;
         this.categorie = categorie;
+        this.liederen = liederen;
     }
 
     public String getNaam()

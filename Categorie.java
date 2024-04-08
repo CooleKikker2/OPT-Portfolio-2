@@ -1,5 +1,5 @@
 public class Categorie {
-    public String naam;
+    private String naam;
 
     public Categorie(String naam)
     {

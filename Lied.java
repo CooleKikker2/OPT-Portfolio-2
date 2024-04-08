@@ -1,5 +1,5 @@
 public class Lied {
-    public String naam;
+    private String naam;
 
     public Lied(String naam)
     {
