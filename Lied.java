@@ -2,6 +2,10 @@ public class Lied {
     private int id;
     private String naam;
 
+    public Lied(String naam)
+    {
+        this.naam = naam;
+    }
     public Lied(int id, String naam)
     {
         this.id = id;
