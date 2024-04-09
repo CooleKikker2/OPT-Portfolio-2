@@ -37,7 +37,7 @@ public class BookLoader {
             FileWriter writer = new FileWriter(booksFile, true);
 
             int new_id = loadBooks().size() + 1;
-            String line = new_id + " " + b.getNaam() + " " + b.getComponist().getNaam() + " " + b.getCategorie().getNaam() + " " + b.getBoekNamen();
+            String line = new_id + " " + b.getNaam() + " " + b.getComponist().getNaam() + " " + b.getCategorie() + " " + b.getLiedIds();
             writer.append(line + "\n");
             writer.close();
             return new_id;

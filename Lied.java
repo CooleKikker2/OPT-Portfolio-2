@@ -1,25 +1,20 @@
 public class Lied {
+    private int id;
     private String naam;
 
-    private int boek_id;
-
-    public Lied(String naam)
+    public Lied(int id, String naam)
     {
+        this.id = id;
         this.naam = naam;
+    }
+
+    public int getId()
+    {
+        return this.id;
     }
 
     public String getNaam()
     {
         return this.naam;
-    }
-
-    public int getBoekId()
-    {
-        return boek_id;
-    }
-
-    public void setBoekId(int boek_id)
-    {
-        this.boek_id = boek_id;
     }
 }

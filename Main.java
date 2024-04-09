@@ -26,38 +26,60 @@ class Page
 
     public void voegBoekToe(Scanner scanner)
     {
+        BookLoader bookLoader = new BookLoader();
+        LiedLoader liedloader = new LiedLoader();
+
+        ArrayList<String> categorieen = new ArrayList<String>();
+        categorieen.add("Kerst");
+        categorieen.add("Heilig Avondmaal");
+        categorieen.add("Pasen");
+        categorieen.add("Goede Vrijdag");
+        categorieen.add("Jeugddienst");
+        categorieen.add("Psalmen");
+
         ArrayList<Lied> liederen = new ArrayList<Lied>();
         System.out.println("Wat is de naam van het boekje?");
         String boekje = scanner.nextLine();
         System.out.println("Wie is de componist van het boekje?");
         String componistnaam = scanner.nextLine();
         System.out.println("Onder welke categorie valt het boekje?");
-        String categorienaam = scanner.nextLine();
-        System.out.println("Welke liederen staan er in het boekje? Typ 'stop' al je alle liederen hebt toegevoegd");
+        int cat_index = 1;
+        for(String categorie : categorieen)
+        {
+            System.out.println(cat_index + ". " + categorie);
+            cat_index++;
+        }
+
+        int categorienummer = scanner.nextInt();
+        String categorie = categorieen.get(categorienummer - 1);
+        scanner.nextLine();
+        System.out.println("Welke liederen staan er in het boekje? Typ '0' al je alle liederen hebt toegevoegd");
+        int lied_index = 1;
+        for(String[] l : liedloader.loadLiederen())
+        {
+            System.out.println(lied_index + ". " + l[1]);
+            lied_index++;
+        }
         while(true)
         {
-            String liednaam = scanner.nextLine();
-            if(liednaam.equals("stop"))
+            int liednummer = scanner.nextInt();
+            scanner.nextLine();
+            if(liednummer == 0)
             {
                 Componist componist = new Componist(componistnaam);
-                Categorie categorie = new Categorie(categorienaam);
                 Boek boek = new Boek("Boekje", componist, categorie, liederen);
-                BookLoader bookLoader = new BookLoader();
-                LiedLoader liedloader = new LiedLoader();
-                int boek_id = bookLoader.writeBoek(boek);
-                for(Lied l : boek.getLiederen())
-                {
-                    l.setBoekId(boek_id);
-                    liedloader.writeLied(l);
-                }
+                bookLoader.writeBoek(boek);
                 this.menu(scanner);
                 break;
             }
 
-            Lied lied = new Lied(liednaam);
+            String[] gekozenLied = liedloader.loadLiederen().get(liednummer - 1);
+            String liednaam = gekozenLied[1];
+            int liedid = Integer.parseInt(gekozenLied[0]);
+            Lied lied = new Lied(liedid, liednaam);
             liederen.add(lied);
-            System.out.printf("Lied %s toegevoegd aan %s \n", lied, boekje);
-            System.out.println("Voeg nog een lied toe aan het boekje of typ 'stop'");
+            System.out.printf("Lied %s toegevoegd aan %s \n", lied.getNaam(), boekje);
+            System.out.println("Voeg nog een lied toe aan het boekje of typ '0'");
         }
     }
 

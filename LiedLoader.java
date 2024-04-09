@@ -37,7 +37,7 @@ public class LiedLoader {
             FileWriter writer = new FileWriter(liedFile, true);
 
             int new_id = loadLiederen().size() + 1;
-            String line = new_id + " " + l.getNaam() + " " + l.getBoekId();
+            String line = new_id + " " + l.getNaam();
             writer.append(line + "\n");
             writer.close();
             return new_id;
@@ -56,7 +56,7 @@ public class LiedLoader {
     public ArrayList<String[]> loadFile(String fileName)
     {
         String[] parts = new String[4];
-        ArrayList<String[]> gameLines = new ArrayList<>();
+        ArrayList<String[]> liedLines = new ArrayList<>();
         try {
             // Bestandspad openen en opslaan om later het bestand te openen
             Path filePath = Paths.get(fileName);
@@ -70,12 +70,12 @@ public class LiedLoader {
                 line = lines.get(i);
                 parts = line.split(" ");
 
-                gameLines.add(parts);
+                liedLines.add(parts);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return gameLines;
+        return liedLines;
     }
 }

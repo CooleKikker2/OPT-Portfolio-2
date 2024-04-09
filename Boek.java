@@ -4,11 +4,11 @@ public class Boek {
     private String naam;
     private Componist componist;
 
-    private Categorie categorie;
+    private String categorie;
 
     private ArrayList<Lied> liederen;
 
-    public Boek(String naam, Componist componist, Categorie categorie, ArrayList<Lied> liederen)
+    public Boek(String naam, Componist componist, String categorie, ArrayList<Lied> liederen)
     {
         this.naam = naam;
         this.componist = componist;
@@ -31,13 +31,19 @@ public class Boek {
         return this.componist;
     }
 
-    public Categorie getCategorie()
+    public String getCategorie()
     {
         return this.categorie;
     }
 
-    public String getBoekNamen()
+    public String getLiedIds()
     {
-        return "";
+        String returnString = "";
+        for(Lied lied : this.liederen)
+        {
+            returnString += lied.getId() + " ";
+        }
+
+        return returnString;
     }
 }
