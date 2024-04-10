@@ -59,9 +59,9 @@ class Page
         scanner.nextLine();
         System.out.println("Welke liederen staan er in het boekje? Typ '0' al je alle liederen hebt toegevoegd");
         int lied_index = 1;
-        for(String[] l : liedloader.loadLiederen())
+        for(Lied l : liedloader.loadLiederen())
         {
-            System.out.println(lied_index + ". " + l[1]);
+            System.out.println(lied_index + ". " + l.getNaam());
             lied_index++;
         }
         while(true)
@@ -77,9 +77,9 @@ class Page
                 break;
             }
 
-            String[] gekozenLied = liedloader.loadLiederen().get(liednummer - 1);
-            String liednaam = gekozenLied[1];
-            int liedid = Integer.parseInt(gekozenLied[0]);
+            Lied gekozenLied = liedloader.loadLiederen().get(liednummer - 1);
+            String liednaam = gekozenLied.getNaam();
+            int liedid = gekozenLied.getId();
             Lied lied = new Lied(liedid, liednaam);
             liederen.add(lied);
             System.out.printf("Lied %s toegevoegd aan %s \n", lied.getNaam(), boekje);
@@ -110,7 +110,15 @@ class Page
 
     public void filterBoek(Scanner scanner)
     {
-
+        System.out.println("Op welk lied wil je zoeken?");
+        LiedLoader liedLoader = new LiedLoader();
+        ArrayList<Lied> liederen = liedLoader.loadLiederen();
+        int lied_index = 1;
+        for(Lied l : liederen)
+        {
+            System.out.println(lied_index + ". " + l.getNaam());
+            lied_index++;
+        }
     }
 }
 public class Main {

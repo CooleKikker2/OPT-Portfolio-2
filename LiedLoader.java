@@ -47,10 +47,15 @@ public class LiedLoader {
 
         return 0;
     }
-    public ArrayList<String[]> loadLiederen()
+    public ArrayList<Lied> loadLiederen()
     {
-        //Games inladen (sorteeroptie / filteroptie later hier inbouwen)
-        return this.loadFile(liedFile);
+        ArrayList<Lied> returnData = new ArrayList<Lied>();
+        ArrayList<String[]> liederen = this.loadFile(liedFile);
+        for(String[] lied : liederen) {
+            Lied dbLied = new Lied(Integer.parseInt(lied[0]), lied[1]);
+            returnData.add(dbLied);
+        }
+        return returnData;
     }
 
     public ArrayList<String[]> loadFile(String fileName)
