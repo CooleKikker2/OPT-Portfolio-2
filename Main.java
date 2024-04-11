@@ -30,7 +30,7 @@ class Page
 
     public void voegBoekToe(Scanner scanner)
     {
-        BookLoader bookLoader = new BookLoader();
+        BoekLoader bookLoader = new BoekLoader();
         LiedLoader liedloader = new LiedLoader();
 
         ArrayList<String> categorieen = new ArrayList<String>();
@@ -112,6 +112,8 @@ class Page
     {
         System.out.println("Op welk lied wil je zoeken?");
         LiedLoader liedLoader = new LiedLoader();
+        BoekLoader boekLoader = new BoekLoader();
+        ArrayList<Boek> boeken = boekLoader.loadBooks();
         ArrayList<Lied> liederen = liedLoader.loadLiederen();
         int lied_index = 1;
         for(Lied l : liederen)
@@ -119,6 +121,12 @@ class Page
             System.out.println(lied_index + ". " + l.getNaam());
             lied_index++;
         }
+        int gekozenliedindex = scanner.nextInt();
+        scanner.nextLine();
+        Lied gekozenlied = new Lied();
+        gekozenlied = gekozenlied.getByIndex(gekozenliedindex);
+        boeken = gekozenlied.filterBoek(boeken, gekozenlied.getId());
+        System.out.println("Er voldoen " + boeken.size() + " boek(en) aan jouw zoekopdracht:");
     }
 }
 public class Main {

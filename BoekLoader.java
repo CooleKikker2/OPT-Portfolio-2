@@ -7,23 +7,22 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookLoader {
+public class BoekLoader {
     private String booksFile = "boek.txt";
 
-    public void removeBook(ArrayList<String[]> games){
+    public void removeBook(ArrayList<String[]> boeken){
         try {
             FileWriter writer = new FileWriter(booksFile);
             writer.append("Id Naam Componist Categorie Liederen\n");
 
-            //alle games hun ID's refreshen zodat het weer gesorteerd is(zodat je geen problemen krijgt met het toevoegen van nieuwe games en dan twee dezelfde ID's krijgt)
-            for(int i = 0; i < games.size(); i++){
-                games.get(i)[0] = String.valueOf(i + 1);
+            for(int i = 0; i < boeken.size(); i++){
+                boeken.get(i)[0] = String.valueOf(i + 1);
             }
 
             //voeg nieuwe gerefreshde ID game lijst toe aan games.txt
-            for(String[] game : games){
+            for(String[] boek : boeken){
                 String line = "";
-                line = game[0] + " " + game[1] + " " + game[2] + " " + game[3] + " " + game[4];
+                line = boek[0] + " " + boek[1] + " " + boek[2] + " " + boek[3] + " " + boek[4];
                 writer.append(line + "\n");
             }
             writer.close();
@@ -35,9 +34,10 @@ public class BookLoader {
     public int writeBoek(Boek b){
         try {
             FileWriter writer = new FileWriter(booksFile, true);
+            dbEncoder dbEncoder = new dbEncoder();
 
             int new_id = loadBooks().size() + 1;
-            String line = new_id + " " + b.getNaam() + " " + b.getComponist().getNaam() + " " + b.getCategorie() + " " + b.getLiedIds();
+            String line = new_id + " " + dbEncoder.encode(b.getNaam()) + " " + dbEncoder.encode(b.getComponist().getNaam()) + " " + dbEncoder.encode(b.getCategorie()) + " " + b.getLiedIds();
             writer.append(line + "\n");
             writer.close();
             return new_id;
@@ -47,10 +47,32 @@ public class BookLoader {
 
         return 0;
     }
-    public ArrayList<String[]> loadBooks()
+    public ArrayList<Boek> loadBooks()
     {
-        //Games inladen (sorteeroptie / filteroptie later hier inbouwen)
-        return this.loadFile(booksFile);
+        dbEncoder dbEncoder = new dbEncoder();
+        ArrayList<String[]> dbBoeken = this.loadFile(booksFile);
+        ArrayList<Boek> result = new ArrayList<Boek>();
+        for (String[] dbBoek : dbBoeken)
+        {
+            Componist componist = new Componist(dbEncoder.decode(dbBoek[2]));
+            ArrayList<Lied> liederen = new ArrayList<Lied>();
+
+            int index = 0;
+            for(String lied_id : dbBoek)
+            {
+                if(index > 3)
+                {
+                    Lied lied = new Lied();
+                    lied = lied.getById(Integer.parseInt(lied_id));
+                    liederen.add(lied);
+                }
+                index = index + 1;
+            }
+
+            Boek boek = new Boek(dbEncoder.decode(dbBoek[1]), componist, dbEncoder.decode(dbBoek[3]), liederen);
+            result.add(boek);
+        }
+        return result;
     }
 
     public ArrayList<String[]> loadFile(String fileName)

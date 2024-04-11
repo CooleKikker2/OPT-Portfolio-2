@@ -35,9 +35,10 @@ public class LiedLoader {
     public int writeLied(Lied l){
         try {
             FileWriter writer = new FileWriter(liedFile, true);
+            dbEncoder dbEncoder = new dbEncoder();
 
             int new_id = loadLiederen().size() + 1;
-            String line = new_id + " " + l.getNaam();
+            String line = new_id + " " + dbEncoder.encode(l.getNaam());
             writer.append(line + "\n");
             writer.close();
             return new_id;
@@ -49,10 +50,12 @@ public class LiedLoader {
     }
     public ArrayList<Lied> loadLiederen()
     {
+        dbEncoder dbEncoder = new dbEncoder();
+
         ArrayList<Lied> returnData = new ArrayList<Lied>();
         ArrayList<String[]> liederen = this.loadFile(liedFile);
         for(String[] lied : liederen) {
-            Lied dbLied = new Lied(Integer.parseInt(lied[0]), lied[1]);
+            Lied dbLied = new Lied(Integer.parseInt(lied[0]), dbEncoder.decode(lied[1]));
             returnData.add(dbLied);
         }
         return returnData;
