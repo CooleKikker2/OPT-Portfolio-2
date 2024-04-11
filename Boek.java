@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Boek {
+public class Boek extends Filter{
     private String naam;
     private Componist componist;
 
@@ -8,8 +8,13 @@ public class Boek {
 
     private ArrayList<Lied> liederen;
 
+    public Boek()
+    {
+        super("bk");
+    }
     public Boek(String naam, Componist componist, String categorie, ArrayList<Lied> liederen)
     {
+        super("bk");
         this.naam = naam;
         this.componist = componist;
         this.categorie = categorie;
@@ -45,5 +50,18 @@ public class Boek {
         }
 
         return returnString;
+    }
+
+    @Override
+    public ArrayList<Boek> filterBoek(ArrayList<Boek> boeken, String filter) {
+        ArrayList<Boek> resultaat = new ArrayList<>();
+        for(Boek boek : boeken)
+        {
+            if(boek.getCategorie().equals(filter))
+            {
+                resultaat.add(boek);
+            }
+        }
+        return resultaat;
     }
 }

@@ -7,8 +7,9 @@ public class Filter {
     {
         this.filterType = filterType;
     }
-    public ArrayList<Boek> filterBoek(ArrayList<Boek> boeken, int filter)
+    public ArrayList<Boek> filterBoek(ArrayList<Boek> boeken, String filter)
     {
+        int filterInt = Integer.parseInt(filter);
         ArrayList<Boek> resultaat = new ArrayList<Boek>();
         String filtertype = this.filterType;
         ArrayList<Boek> result = new ArrayList<Boek>();
@@ -18,7 +19,7 @@ public class Filter {
             {
                 for(Lied lied : boek.getLiederen())
                 {
-                    if(lied.getId() == filter)
+                    if(lied.getId() == filterInt)
                     {
                         result.add(boek);
                     }

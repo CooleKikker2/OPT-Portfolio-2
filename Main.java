@@ -110,11 +110,26 @@ class Page
 
     public void filterBoek(Scanner scanner)
     {
-        System.out.println("Op welk lied wil je zoeken?");
         LiedLoader liedLoader = new LiedLoader();
         BoekLoader boekLoader = new BoekLoader();
-        ArrayList<Boek> boeken = boekLoader.loadBooks();
         ArrayList<Lied> liederen = liedLoader.loadLiederen();
+        System.out.println("Naar welke categorie muziek ben je op zoek?");
+        ArrayList<String> categorieen = boekLoader.loadIdentiekeCategorieen();
+        ArrayList<Boek> boeken = boekLoader.loadBooks();
+        int categorie_index = 1;
+        for(String categorie : categorieen)
+        {
+            System.out.println(categorie_index + ". " + categorie);
+            categorie_index++;
+        }
+        int categorieIndex = scanner.nextInt();
+        if(categorieIndex != categorieen.size())
+        {
+            Boek boekFilter = new Boek();
+            boeken = boekFilter.filterBoek(boeken, categorieen.get(categorieIndex - 1));
+        }
+
+        System.out.println("Op welk lied wil je zoeken?");
         int lied_index = 1;
         for(Lied l : liederen)
         {
@@ -125,7 +140,7 @@ class Page
         scanner.nextLine();
         Lied gekozenlied = new Lied();
         gekozenlied = gekozenlied.getByIndex(gekozenliedindex);
-        boeken = gekozenlied.filterBoek(boeken, gekozenlied.getId());
+        boeken = gekozenlied.filterBoek(boeken, "" + gekozenlied.getId());
         System.out.println("Er voldoen " + boeken.size() + " boek(en) aan jouw zoekopdracht:");
     }
 }

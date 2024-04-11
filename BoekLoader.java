@@ -100,4 +100,20 @@ public class BoekLoader {
         }
         return gameLines;
     }
+
+    public ArrayList<String> loadIdentiekeCategorieen()
+    {
+        ArrayList<String> resultaat = new ArrayList<String>();
+        ArrayList<Boek> boeken = this.loadBooks();
+
+        for(Boek boek : boeken)
+        {
+            if(!resultaat.contains(boek.getCategorie()))
+            {
+                resultaat.add(boek.getCategorie());
+            }
+        }
+
+        return resultaat;
+    }
 }
