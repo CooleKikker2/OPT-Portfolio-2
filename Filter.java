@@ -9,12 +9,11 @@ public class Filter {
     }
     public ArrayList<Boek> filterBoek(ArrayList<Boek> boeken, String filter)
     {
-        int filterInt = Integer.parseInt(filter);
-        ArrayList<Boek> resultaat = new ArrayList<Boek>();
         String filtertype = this.filterType;
         ArrayList<Boek> result = new ArrayList<Boek>();
         if(filterType.equals("ld"))
         {
+            int filterInt = Integer.parseInt(filter);
             for(Boek boek : boeken)
             {
                 for(Lied lied : boek.getLiederen())
@@ -27,6 +26,16 @@ public class Filter {
             }
         }
 
+        if(filterType.equals("cp"))
+        {
+            for(Boek boek : boeken)
+            {
+                if(boek.getComponist().getNaam().equals(filter))
+                {
+                    result.add(boek);
+                }
+            }
+        }
         return result;
     }
 }

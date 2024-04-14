@@ -6,6 +6,11 @@ public class Componist extends Filter {
         super("cp");
         this.naam = naam;
     }
+
+    public Componist()
+    {
+        super("cp");
+    }
     public String getNaam()
     {
         return this.naam;

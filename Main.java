@@ -113,6 +113,8 @@ class Page
         LiedLoader liedLoader = new LiedLoader();
         BoekLoader boekLoader = new BoekLoader();
         ArrayList<Lied> liederen = liedLoader.loadLiederen();
+        Boek boekFilter = new Boek();
+        Componist componistFilter = new Componist();
         System.out.println("Naar welke categorie muziek ben je op zoek?");
         ArrayList<String> categorieen = boekLoader.loadIdentiekeCategorieen();
         ArrayList<Boek> boeken = boekLoader.loadBooks();
@@ -125,7 +127,6 @@ class Page
         int categorieIndex = scanner.nextInt();
         if(categorieIndex != categorieen.size())
         {
-            Boek boekFilter = new Boek();
             boeken = boekFilter.filterBoek(boeken, categorieen.get(categorieIndex - 1));
         }
 
@@ -141,7 +142,23 @@ class Page
         Lied gekozenlied = new Lied();
         gekozenlied = gekozenlied.getByIndex(gekozenliedindex);
         boeken = gekozenlied.filterBoek(boeken, "" + gekozenlied.getId());
+
+        System.out.println("Ben je op zoek naar boekjes van een specefieke componist (Y/N)?");
+        String keuze = scanner.nextLine();
+        if(keuze.equals("Y"))
+        {
+            System.out.println("Zoek op een componist:");
+            String componist = scanner.nextLine();
+            boeken = componistFilter.filterBoek(boeken, componist);
+        }
+
         System.out.println("Er voldoen " + boeken.size() + " boek(en) aan jouw zoekopdracht:");
+        int boekIndex = 1;
+        for(Boek b : boeken)
+        {
+            System.out.println(boekIndex + ". " + b.getNaam() + " - " + b.getComponist().getNaam());
+        }
+
     }
 }
 public class Main {
